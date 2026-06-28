@@ -77,7 +77,7 @@ export const WorkExperience: React.FC = () => {
     <div className="space-y-8 animate-fade-in">
       {/* Header */}
       <div className="border-panel border-b pb-4">
-        <div className="font-mono text-xs text-machine-orange mb-1 font-bold">SYSTEM.EXEC // WORK_EXPERIENCE</div>
+        <div className="font-mono text-xs text-machine-orange mb-1 font-bold">SYSTEM.EXP // WORK_EXPERIENCE</div>
         <h2 className="text-2xl font-bold tracking-tight text-panel-textActive">WORK EXPERIENCE DEEP-DIVE</h2>
       </div>
 

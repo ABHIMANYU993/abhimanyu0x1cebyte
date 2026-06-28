@@ -46,7 +46,7 @@ export const CatppuccinoDaemon: React.FC<CatppuccinoDaemonProps> = ({
   variant = 'white_cat'
 }) => {
   // React State for DOM rendering swaps
-  const [action, setAction] = useState<string>('sleep');
+  const [action, setAction] = useState<string>('SLEEP');
   const [frameNum, setFrameNum] = useState<number>(0);
   const [bubbleState, setBubbleState] = useState<string>('ZZZ');
   const [bubbleFrame, setBubbleFrame] = useState<number>(0);
@@ -61,7 +61,7 @@ export const CatppuccinoDaemon: React.FC<CatppuccinoDaemonProps> = ({
   const stateRef = useRef<'DEFAULT' | 'WANDER'>('DEFAULT');
 
   // Logic control values
-  const actionRef = useRef<string>('sleep');
+  const actionRef = useRef<string>('SLEEP');
   const frameRef = useRef<number>(0);
   const bubbleStateRef = useRef<string>('ZZZ');
   const bubbleFrameRef = useRef<number>(0);

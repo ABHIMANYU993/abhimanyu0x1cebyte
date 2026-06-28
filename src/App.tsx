@@ -57,7 +57,7 @@ function App() {
     switch (id) {
       case 'core': return '01_SYS.CORE';
       case 'skills': return '02_SYS.SKILLS';
-      case 'experience': return '03_SYS.EXEC';
+      case 'experience': return '03_SYS.EXP';
       case 'projects': return '04_SYS.PROJ';
       case 'homelab': return '05_SYS.LAB';
       default: return '00_SYS.NULL';
@@ -112,7 +112,7 @@ function App() {
           {[
             { id: 'core', label: '01_SYS.CORE' },
             { id: 'skills', label: '02_SYS.SKILLS' },
-            { id: 'experience', label: '03_SYS.EXEC' },
+            { id: 'experience', label: '03_SYS.EXP' },
             { id: 'projects', label: '04_SYS.PROJ' },
             { id: 'homelab', label: '05_SYS.LAB' }
           ].map((item) => (

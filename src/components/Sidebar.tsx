@@ -45,7 +45,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeSection, setActiveSectio
   const navItems = [
     { id: 'core', label: '01_SYS.CORE', icon: Info, title: 'Identity & Summary' },
     { id: 'skills', label: '02_SYS.SKILLS', icon: Cpu, title: 'Systems Matrix' },
-    { id: 'experience', label: '03_SYS.EXEC', icon: Briefcase, title: 'Work Deep-Dive' },
+    { id: 'experience', label: '03_SYS.EXP', icon: Briefcase, title: 'Work Deep-Dive' },
     { id: 'projects', label: '04_SYS.PROJ', icon: FolderGit2, title: 'Projects Directory' },
     { id: 'homelab', label: '05_SYS.LAB', icon: Network, title: 'Home Lab & Hackathons' },
   ];
