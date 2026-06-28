@@ -13,7 +13,7 @@ export default {
       colors: {
         // Bespoke technical/industrial color palette
         panel: {
-          bg: '#0a0a0c',        // Pure dark base background
+          bg: '#000000',        // Pure pitch dark base background
           card: '#121216',      // Technical panel component background
           header: '#18181f',    // Instrument cluster header background
           border: '#222227',    // Low-light divider

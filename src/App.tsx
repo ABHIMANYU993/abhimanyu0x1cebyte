@@ -8,9 +8,11 @@ import { HomeLabAchievements } from './components/HomeLabAchievements';
 import { Terminal, Database, Folder, Activity, Menu, X } from 'lucide-react';
 import { BootLoader } from './components/BootLoader';
 import { CatppuccinoDaemon } from './components/CatppuccinoDaemon';
+import { SkeletonLoader } from './components/SkeletonLoader';
 
 function App() {
   const [activeSection, setActiveSection] = useState<string>('core');
+  const [isLoadingSection, setIsLoadingSection] = useState<boolean>(false);
   const [currentTime, setCurrentTime] = useState<string>('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [memUsage, setMemUsage] = useState<string>('42.8 MB');
@@ -52,6 +54,15 @@ function App() {
       clearInterval(memTimer);
     };
   }, []);
+
+  // Trigger skeleton loader on section switch
+  useEffect(() => {
+    setIsLoadingSection(true);
+    const timer = setTimeout(() => {
+      setIsLoadingSection(false);
+    }, 450);
+    return () => clearTimeout(timer);
+  }, [activeSection]);
 
   const getSectionTitle = (id: string) => {
     switch (id) {
@@ -184,11 +195,17 @@ function App() {
 
         {/* Content Pane container */}
         <section className="flex-grow p-4 md:p-6 lg:p-8 max-w-5xl w-full mx-auto overflow-y-auto">
-          {activeSection === 'core' && <CoreDiscipline />}
-          {activeSection === 'skills' && <SkillsMatrix />}
-          {activeSection === 'experience' && <WorkExperience />}
-          {activeSection === 'projects' && <ProjectsDirectory />}
-          {activeSection === 'homelab' && <HomeLabAchievements />}
+          {isLoadingSection ? (
+            <SkeletonLoader section={activeSection} />
+          ) : (
+            <>
+              {activeSection === 'core' && <CoreDiscipline />}
+              {activeSection === 'skills' && <SkillsMatrix />}
+              {activeSection === 'experience' && <WorkExperience />}
+              {activeSection === 'projects' && <ProjectsDirectory />}
+              {activeSection === 'homelab' && <HomeLabAchievements />}
+            </>
+          )}
         </section>
 
         {/* Bottom Control / Info Bar */}

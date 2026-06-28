@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    font-size: 18px;
+  }
   body {
     @apply bg-panel-bg text-panel-textActive font-sans antialiased;
   }
@@ -18,9 +21,22 @@
 .bg-grid-pattern {
   background-size: 24px 24px;
   background-image: 
-    linear-gradient(to right, rgba(34, 34, 39, 0.4) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(34, 34, 39, 0.4) 1px, transparent 1px);
+    linear-gradient(to right, rgba(38, 38, 45, 0.45) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(38, 38, 45, 0.45) 1px, transparent 1px);
 }
+
+/* Blurry Translucent Glassmorphism Overrides */
+.bg-panel-card, .bg-\[\#121216\], .bg-\[\#121216\]\/30, .bg-\[\#121216\]\/50, .bg-\[\#121216\]\/20, .bg-panel-card\/20, .bg-panel-card\/30, .bg-panel-card\/60 {
+  background-color: rgba(18, 18, 22, 0.5) !important;
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+}
+.bg-panel-header, .bg-\[\#18181f\], .bg-\[\#121216\]\/50, .bg-\[\#111115\] {
+  background-color: rgba(24, 24, 31, 0.65) !important;
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+}
+
 
 /* Tactile component borders and custom layouts */
 .border-panel {
