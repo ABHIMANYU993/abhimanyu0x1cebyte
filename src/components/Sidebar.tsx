@@ -66,16 +66,25 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeSection, setActiveSectio
         </div>
 
         {/* Identity block */}
-        <div className="p-5 border-panel border-b">
-          <h1 className="font-mono text-xl font-bold tracking-tight text-panel-textActive">
-            <ScrambleText text="ABHIMANYU BADIGER" />
-          </h1>
-          <p className="font-mono text-xs text-machine-orange mt-1 uppercase tracking-wider font-medium">
-            Systems & MLOps Engineer
-          </p>
-          <div className="mt-3 flex items-center space-x-2 font-mono text-[10px] text-panel-textMuted">
-            <span>LOC:</span>
-            <span className="text-panel-textActive">BANGALORE, IN</span>
+        <div className="p-5 border-panel border-b flex items-start space-x-4">
+          <div className="w-12 h-12 border border-panel p-0.5 bg-panel-bg flex-shrink-0">
+            <img 
+              src="/logo.png" 
+              alt="Icebyte Labs Logo" 
+              className="w-full h-full object-cover filter grayscale contrast-125 opacity-90"
+            />
+          </div>
+          <div className="flex-1 min-w-0">
+            <h1 className="font-mono text-lg font-bold tracking-tight text-panel-textActive leading-snug">
+              <ScrambleText text="ABHIMANYU BADIGER" />
+            </h1>
+            <p className="font-mono text-[10px] text-machine-orange mt-1 uppercase tracking-wider font-semibold">
+              Systems & MLOps Engineer
+            </p>
+            <div className="mt-2 flex items-center space-x-2 font-mono text-[9px] text-panel-textMuted">
+              <span>LOC:</span>
+              <span className="text-panel-textActive">BANGALORE, IN</span>
+            </div>
           </div>
         </div>
 

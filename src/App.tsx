@@ -86,7 +86,11 @@ function App() {
       {/* Mobile Top Bar */}
       <header className="md:hidden bg-panel-card border-b border-panel p-4 flex items-center justify-between sticky top-0 z-40 select-none">
         <div className="flex items-center space-x-2">
-          <span className="w-2 h-2 rounded-full bg-machine-orange"></span>
+          <img 
+            src="/logo.png" 
+            alt="Icebyte Labs Logo" 
+            className="w-5 h-5 object-cover border border-panel p-[1px] filter grayscale opacity-90"
+          />
           <span className="font-mono text-xs font-bold text-panel-textActive">ABHIMANYU.SYS</span>
         </div>
         <div className="flex items-center space-x-3">
