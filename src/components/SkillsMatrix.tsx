@@ -14,7 +14,11 @@ interface SkillCategory {
   items: SkillItem[];
 }
 
-export const SkillsMatrix: React.FC = () => {
+interface SkillsMatrixProps {
+  isLoading?: boolean;
+}
+
+export const SkillsMatrix: React.FC<SkillsMatrixProps> = ({ isLoading = false }) => {
   const [selectedSkill, setSelectedSkill] = useState<SkillItem | null>(null);
 
   const skillsData: SkillCategory[] = [
@@ -43,49 +47,54 @@ export const SkillsMatrix: React.FC = () => {
         { name: 'Ansible', useCase: 'Declarative playbooks automating Proxmox full-clone template VM deployments and Cloud-Init injection.' },
         { name: 'Docker Compose', useCase: 'Host-network mapping, custom bridges, PCIe passthrough render nodes config.' },
         { name: 'GitHub Actions', useCase: 'Zero-Trust CI/CD pipelines deploying container lifecycles via Cloudflare SSH tunnels.' },
-        { name: 'WireGuard', useCase: 'Bypassing CGNAT and residential firewalls using dual-stack IPv6-first overlay tunnels.' },
-        { name: 'FRRouting (FRR)', useCase: 'Running Multiprotocol BGP unnumbered sessions over unroutable link-local IPv6 interfaces.' },
-        { name: 'BGP (RFC 5549/8950)', useCase: 'Exchanging IPv4 routing tables over IPv6 transport layers; DN42 AS4242421972 peering.' },
-        { name: 'Cloudflare Tunnels', useCase: 'Zero-Trust ingress using proxy commands, secure 2FA DNS proxied domains.' },
-        { name: 'Nginx Proxy Manager', useCase: 'Reverse proxy settings and automated SSL certificate terminations.' },
+        { name: 'WireGuard', useCase: 'Establishing link-local fe80:: overlay peering tunnels to bypass ISP CGNAT bottlenecks.' },
+        { name: 'BGP (FRR)', useCase: 'RFC 5549 BGP Unnumbered route announcements over link-local fe80:: tunnel interfaces.' },
+        { name: 'Cloudflare Tunnels', useCase: 'Exposing internal platform endpoints (SSH, web, database) behind proxied orange-cloud DNS.' },
+        { name: 'Pi-hole', useCase: 'Redundant DNS clusters configuring local system pointer (PTR) records and recursive forward rules.' },
+        { name: 'Nginx', useCase: 'Custom reverse proxy block rules handling TCP/UDP streaming and raw websocket multiplexing.' },
       ],
     },
     {
-      title: 'AI / MLOps Pipeline Design',
+      title: 'AI & Data Orchestration',
       icon: Layers,
-      tag: 'ML_LAYER_2',
-      desc: 'Orchestrating agent workflows, hardware profiling, vector retrieval optimization, and custom image pipelines.',
+      tag: 'DATA_LAYER_2',
+      desc: 'Retrieval Augmented Generation pipelines, vector query optimizations, and local inference models.',
       items: [
-        { name: 'PyTorch', useCase: 'Training LoRA parameters, fine-tuning CodeBERT classifiers, and optimizing RunPod memory limits.' },
-        { name: 'LangGraph', useCase: 'Deterministic, cyclic multi-node agent orchestration loops utilizingSupervisor control.' },
-        { name: 'Qdrant', useCase: 'High-throughput data migrations, custom hybrid semantic queries, and metadata filter queries.' },
-        { name: 'ChromaDB', useCase: 'Local vector persistence tracking shell telemetry, execution traces, and GUI noise filtration.' },
-        { name: 'LoRA / Flux.1.dev', useCase: 'Fine-tuning 26GB diffusion models with dynamic weight hot-swapping into VRAM on request.' },
-        { name: 'Whisper AI', useCase: 'Local offline audio transcription backend bound to standalone Python recording daemons.' },
-        { name: 'HuggingFace', useCase: 'Tokenizers, CodeBERT embeddings extraction, and model loading pipelines.' },
-        { name: 'RunPod', useCase: 'Hardware profiling across 24GB/48GB/96GB GPU clusters to analyze optimal VRAM limits.' },
-      ],
-    },
-    {
-      title: 'Languages & Backends',
-      icon: Code2,
-      tag: 'APP_LAYER_3',
-      desc: 'High-performance asynchronous server-side daemons, custom bash integrations, and stateful databases.',
-      items: [
-        { name: 'Python', useCase: 'Developing system daemons, computer vision pipelines, and custom MLOps servers.' },
-        { name: 'FastAPI', useCase: 'High-throughput asynchronous backends, dynamic LoRA hot-swapping, and resume processing.' },
-        { name: 'Bash / Zsh', useCase: 'Automating Wayland wrappers, inotify directory hooks, and telemetry gatherers.' },
-        { name: 'MongoDB', useCase: 'Transactional schema management for complex microservices and user profile storage.' },
-        { name: 'PostgreSQL / PostGIS', useCase: 'PostgreSQL state savers for LangGraph, spatial ST_DWithin query pre-filtering.' },
+        { name: 'PyTorch', useCase: 'Hot-swapping lightweight user-specific LoRA adapter weights (640MB) into VRAM on a base Flux model.' },
+        { name: 'LangGraph', useCase: 'Directing cyclic agent execution loops using supervisor node patterns to prevent stack exhaustion.' },
+        { name: 'Qdrant', useCase: 'Configuring metadata search filters to bound cosine-distance vector matches within 1.6s latency limits.' },
+        { name: 'MongoDB', useCase: 'Storing immutable transaction event history payloads and parsing structured JSON telemetry.' },
         { name: 'Redis', useCase: 'Redis chat memory nodes logging multi-turn conversations chronologically via RPUSH.' },
         { name: 'Flask', useCase: 'Decoupled platform microservices for aviation logistics datasets.' },
-        { name: 'SQL', useCase: 'Relational data query optimizations and custom filters.' },
+        { name: 'Whisper AI', useCase: 'Local standalone audio processing daemon computing RMS volumes and transcript output hooks.' },
+        { name: 'ChromaDB', useCase: 'Aggregating local shell eBPF intent outputs to form system-level behavioral vector memory.' },
+      ],
+    },
+    {
+      title: 'Software & Core Languages',
+      icon: Code2,
+      tag: 'LANG_LAYER_3',
+      desc: 'System programming, scripting automation, and type-safe front-ends.',
+      items: [
+        { name: 'Python', useCase: 'Asynchronous event engines, automated image preprocessing pipelines, and SpaCy NLP intent matchers.' },
+        { name: 'TypeScript', useCase: 'Component properties contracts, custom strict state hooks, and high-performance telemetry.' },
+        { name: 'React', useCase: 'Tactile dashboard design, 60fps local frame cycles, and manual DOM matrix transforms.' },
+        { name: 'Tailwind CSS', useCase: 'Strict systems-aesthetic grid configurations, glassmorphic filters, and typography constraints.' },
+        { name: 'Next.js', useCase: 'Static site generation (SSG) pipelines pre-rendering high-speed asset loads.' },
+        { name: 'Kotlin', useCase: 'Swing-based cross-platform state transitions and frame vector rendering.' },
+        { name: 'Java Swing', useCase: 'Desktop daemon boundary controls, dragging listeners, and thread-sleep loops.' },
+        { name: 'Bash', useCase: 'Low-latency IPC wrappers triggering Unix sockets and Hyprland overlay toggles.' },
       ],
     },
   ];
 
   const handleSkillClick = (skill: SkillItem) => {
-    setSelectedSkill(selectedSkill?.name === skill.name ? null : skill);
+    if (isLoading) return;
+    if (selectedSkill?.name === skill.name) {
+      setSelectedSkill(null);
+    } else {
+      setSelectedSkill(skill);
+    }
   };
 
   return (
@@ -93,13 +102,14 @@ export const SkillsMatrix: React.FC = () => {
       {/* Header */}
       <div className="border-panel border-b pb-4">
         <div className="font-mono text-xs text-machine-orange mb-1 font-bold">SYSTEM.SKILLS // ARCHITECTURE_MATRIX</div>
-        <h2 className="text-2xl font-bold tracking-tight text-panel-textActive">SKILLS SYSTEM LAYER MATRIX</h2>
+        <h2 className="text-2xl font-bold tracking-tight text-panel-textActive">
+          {isLoading ? <span className="skeleton-load w-64 h-7"></span> : "SKILLS SYSTEM LAYER MATRIX"}
+        </h2>
       </div>
 
       {/* Intro Description */}
-      <p className="text-sm text-panel-textMuted font-sans max-w-3xl">
-        Abhimanyu's skill set is structured along systemic engineering disciplines rather than simple technology tags. 
-        Select a specific tool or language below to inspect its exact implementation use-case within his projects.
+      <p className={`text-sm text-panel-textMuted font-sans max-w-3xl ${isLoading ? 'skeleton-load w-full h-8' : ''}`}>
+        {isLoading ? '' : "Abhimanyu's skill set is structured along systemic engineering disciplines rather than simple technology tags. Select a specific tool or language below to inspect its exact implementation use-case within his projects."}
       </p>
 
       {/* Grid of Columns */}
@@ -112,17 +122,19 @@ export const SkillsMatrix: React.FC = () => {
               <div className="border-panel border-b bg-panel-header px-4 py-3 flex items-center justify-between font-mono">
                 <div className="flex items-center space-x-2.5">
                   <CategoryIcon className="w-4 h-4 text-machine-orange" />
-                  <span className="text-xs font-bold text-panel-textActive uppercase tracking-wider">{category.title}</span>
+                  <span className={`text-xs font-bold text-panel-textActive uppercase tracking-wider ${isLoading ? 'skeleton-load w-36 h-4' : ''}`}>
+                    {isLoading ? '' : category.title}
+                  </span>
                 </div>
-                <span className="text-[10px] text-panel-textMuted font-semibold px-2 py-0.5 bg-panel-bg border border-panel">
-                  {category.tag}
+                <span className={`text-[10px] text-panel-textMuted font-semibold px-2 py-0.5 bg-panel-bg border border-panel ${isLoading ? 'skeleton-load w-20 h-4' : ''}`}>
+                  {isLoading ? '' : category.tag}
                 </span>
               </div>
 
               {/* Category Details */}
               <div className="p-4 flex-grow">
-                <p className="text-xs text-panel-textMuted font-sans mb-4 leading-relaxed">
-                  {category.desc}
+                <p className={`text-xs text-panel-textMuted font-sans mb-4 leading-relaxed ${isLoading ? 'skeleton-load w-full h-8' : ''}`}>
+                  {isLoading ? '' : category.desc}
                 </p>
 
                 {/* Skill List */}
@@ -140,8 +152,10 @@ export const SkillsMatrix: React.FC = () => {
                         }`}
                       >
                         <div className="flex items-center justify-between">
-                          <span>{skill.name}</span>
-                          {isSelected && <span className="w-1 h-1 rounded-full bg-machine-orange"></span>}
+                          <span className={isLoading ? 'skeleton-load w-20 h-3.5' : ''}>
+                            {isLoading ? '' : skill.name}
+                          </span>
+                          {isSelected && !isLoading && <span className="w-1.5 h-1.5 rounded-full bg-machine-orange"></span>}
                         </div>
                       </button>
                     );
@@ -154,13 +168,15 @@ export const SkillsMatrix: React.FC = () => {
       </div>
 
       {/* Selected Skill Use Case Readout Console */}
-      <div className="border border-panel bg-[#0d0d0f]">
+      <div className="border border-panel bg-black">
         <div className="border-panel border-b bg-[#121216] px-4 py-2 flex items-center justify-between font-mono text-[10px] text-panel-textMuted">
           <span className="font-semibold uppercase tracking-wider">// SYSTEM_CORE_READOUT</span>
-          <span>STATE: {selectedSkill ? 'READING_DATA' : 'STANDBY'}</span>
+          <span>STATE: {isLoading ? 'SYNCING' : selectedSkill ? 'READING_DATA' : 'STANDBY'}</span>
         </div>
         <div className="p-4 font-mono text-xs leading-relaxed min-h-[72px] flex items-center justify-start">
-          {selectedSkill ? (
+          {isLoading ? (
+            <span className="skeleton-load w-full h-8"></span>
+          ) : selectedSkill ? (
             <div className="space-y-1 w-full">
               <div>
                 <span className="text-machine-orange font-semibold">&gt; info {selectedSkill.name.toLowerCase()}</span>

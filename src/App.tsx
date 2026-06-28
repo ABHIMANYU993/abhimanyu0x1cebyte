@@ -8,7 +8,6 @@ import { HomeLabAchievements } from './components/HomeLabAchievements';
 import { Terminal, Database, Folder, Activity, Menu, X } from 'lucide-react';
 import { BootLoader } from './components/BootLoader';
 import { CatppuccinoDaemon } from './components/CatppuccinoDaemon';
-import { SkeletonLoader } from './components/SkeletonLoader';
 
 function App() {
   const [activeSection, setActiveSection] = useState<string>('core');
@@ -87,7 +86,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0c] bg-grid-pattern text-[#f4f4f7] flex flex-col md:flex-row relative">
+    <div className="min-h-screen bg-[#000000] bg-grid-pattern text-[#f4f4f7] flex flex-col md:flex-row relative">
       {/* Subtle CRT screen scan lines overlay */}
       <div className="absolute inset-0 pointer-events-none z-50 scanlines opacity-[0.12] mix-blend-overlay"></div>
 
@@ -195,17 +194,11 @@ function App() {
 
         {/* Content Pane container */}
         <section className="flex-grow p-4 md:p-6 lg:p-8 max-w-5xl w-full mx-auto overflow-y-auto">
-          {isLoadingSection ? (
-            <SkeletonLoader section={activeSection} />
-          ) : (
-            <>
-              {activeSection === 'core' && <CoreDiscipline />}
-              {activeSection === 'skills' && <SkillsMatrix />}
-              {activeSection === 'experience' && <WorkExperience />}
-              {activeSection === 'projects' && <ProjectsDirectory />}
-              {activeSection === 'homelab' && <HomeLabAchievements />}
-            </>
-          )}
+          {activeSection === 'core' && <CoreDiscipline isLoading={isLoadingSection} />}
+          {activeSection === 'skills' && <SkillsMatrix isLoading={isLoadingSection} />}
+          {activeSection === 'experience' && <WorkExperience isLoading={isLoadingSection} />}
+          {activeSection === 'projects' && <ProjectsDirectory isLoading={isLoadingSection} />}
+          {activeSection === 'homelab' && <HomeLabAchievements isLoading={isLoadingSection} />}
         </section>
 
         {/* Bottom Control / Info Bar */}

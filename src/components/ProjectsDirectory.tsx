@@ -20,7 +20,11 @@ interface Project {
   logs: string[];
 }
 
-export const ProjectsDirectory: React.FC = () => {
+interface ProjectsDirectoryProps {
+  isLoading?: boolean;
+}
+
+export const ProjectsDirectory: React.FC<ProjectsDirectoryProps> = ({ isLoading = false }) => {
   const [selectedProjId, setSelectedProjId] = useState<string>('vmm');
   const [logIndex, setLogIndex] = useState<number>(0);
   const [activeLogs, setActiveLogs] = useState<Array<{ text: string; timestamp: string }>>([]);
@@ -277,14 +281,16 @@ export const ProjectsDirectory: React.FC = () => {
 
   // Simulating terminal logs outputting step-by-step
   useEffect(() => {
+    if (isLoading) return;
     setLogIndex(0);
     setActiveLogs([{ 
       text: selectedProj.logs[0], 
       timestamp: new Date().toLocaleTimeString('en-US', { hour12: false }) 
     }]);
-  }, [selectedProjId]);
+  }, [selectedProjId, isLoading]);
 
   useEffect(() => {
+    if (isLoading) return;
     if (logIndex < selectedProj.logs.length - 1) {
       const timer = setTimeout(() => {
         const nextIndex = logIndex + 1;
@@ -299,14 +305,16 @@ export const ProjectsDirectory: React.FC = () => {
       }, 350 + Math.random() * 200);
       return () => clearTimeout(timer);
     }
-  }, [logIndex, selectedProj]);
+  }, [logIndex, selectedProj, isLoading]);
 
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Header */}
       <div className="border-panel border-b pb-4">
         <div className="font-mono text-xs text-machine-orange mb-1 font-bold">SYSTEM.PROJ // DIRECTORY</div>
-        <h2 className="text-2xl font-bold tracking-tight text-panel-textActive">INJECTED PROJECTS DIRECTORY</h2>
+        <h2 className="text-2xl font-bold tracking-tight text-panel-textActive">
+          {isLoading ? <span className="skeleton-load w-64 h-7"></span> : "INJECTED PROJECTS DIRECTORY"}
+        </h2>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
@@ -319,16 +327,19 @@ export const ProjectsDirectory: React.FC = () => {
             {projectsData.map((proj) => (
               <button
                 key={proj.id}
+                disabled={isLoading}
                 onClick={() => setSelectedProjId(proj.id)}
                 className={`w-full text-left p-2.5 rounded font-mono transition-all duration-150 border flex flex-col ${
-                  selectedProjId === proj.id
+                  selectedProjId === proj.id && !isLoading
                     ? 'bg-panel-card border-machine-orange text-panel-textActive'
                     : 'bg-panel-card/30 border-panel text-panel-textMuted hover:text-panel-textActive hover:bg-panel-card/60'
                 }`}
               >
-                <span className="text-xs font-semibold">{proj.title}</span>
-                <span className="text-[10px] text-panel-textMuted mt-0.5 line-clamp-1">
-                  {proj.tagline}
+                <span className={`text-xs font-semibold ${isLoading ? 'skeleton-load w-28 h-4' : ''}`}>
+                  {isLoading ? '' : proj.title}
+                </span>
+                <span className={`text-[10px] text-panel-textMuted mt-0.5 line-clamp-1 ${isLoading ? 'skeleton-load w-36 h-3' : ''}`}>
+                  {isLoading ? '' : proj.tagline}
                 </span>
               </button>
             ))}
@@ -344,7 +355,7 @@ export const ProjectsDirectory: React.FC = () => {
                 href="https://github.com/ABHIMANYU993/Bluethooh_Gesture_Controller"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between font-mono text-[10px] text-panel-textActive hover:text-machine-orange transition-colors"
+                className={`flex items-center justify-between font-mono text-[10px] text-panel-textActive hover:text-machine-orange transition-colors ${isLoading ? 'pointer-events-none opacity-40' : ''}`}
               >
                 <span>Bluetooth Gesture Ctrl</span>
                 <GithubIcon className="w-3 h-3" />
@@ -353,7 +364,7 @@ export const ProjectsDirectory: React.FC = () => {
                 href="https://github.com/ABHIMANYU993/face_recognition"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between font-mono text-[10px] text-panel-textActive hover:text-machine-orange transition-colors"
+                className={`flex items-center justify-between font-mono text-[10px] text-panel-textActive hover:text-machine-orange transition-colors ${isLoading ? 'pointer-events-none opacity-40' : ''}`}
               >
                 <span>Face Recognition System</span>
                 <GithubIcon className="w-3 h-3" />
@@ -370,13 +381,17 @@ export const ProjectsDirectory: React.FC = () => {
               <div>
                 <h3 className="font-mono text-sm font-bold text-panel-textActive flex items-center space-x-2">
                   <Terminal className="w-4 h-4 text-machine-orange" />
-                  <span>{selectedProj.title}</span>
+                  <span className={isLoading ? 'skeleton-load w-32 h-4' : ''}>
+                    {isLoading ? '' : selectedProj.title}
+                  </span>
                 </h3>
-                <span className="text-[10px] text-panel-textMuted font-sans block mt-0.5">{selectedProj.tagline}</span>
+                <span className={`text-[10px] text-panel-textMuted font-sans block mt-0.5 ${isLoading ? 'skeleton-load w-64 h-3.5' : ''}`}>
+                  {isLoading ? '' : selectedProj.tagline}
+                </span>
               </div>
               
               {/* Comms links */}
-              <div className="flex items-center space-x-2 font-mono text-[10px]">
+              <div className={`flex items-center space-x-2 font-mono text-[10px] ${isLoading ? 'opacity-20 pointer-events-none' : ''}`}>
                 <a
                   href={selectedProj.repo}
                   target="_blank"
@@ -405,14 +420,22 @@ export const ProjectsDirectory: React.FC = () => {
               <span className="font-mono text-[10px] text-panel-textMuted uppercase py-0.5 mr-1 font-bold">
                 Build Specs:
               </span>
-              {selectedProj.stack.map((tech) => (
-                <span
-                  key={tech}
-                  className="font-mono text-[9px] bg-panel-bg border border-panel px-2 py-0.5 text-panel-textActive"
-                >
-                  {tech}
-                </span>
-              ))}
+              {isLoading ? (
+                <>
+                  <span className="font-mono text-[9px] bg-panel-bg border border-panel px-6 py-0.5 skeleton-load h-4"></span>
+                  <span className="font-mono text-[9px] bg-panel-bg border border-panel px-8 py-0.5 skeleton-load h-4"></span>
+                  <span className="font-mono text-[9px] bg-panel-bg border border-panel px-5 py-0.5 skeleton-load h-4"></span>
+                </>
+              ) : (
+                selectedProj.stack.map((tech) => (
+                  <span
+                    key={tech}
+                    className="font-mono text-[9px] bg-panel-bg border border-panel px-2 py-0.5 text-panel-textActive"
+                  >
+                    {tech}
+                  </span>
+                ))
+              )}
             </div>
 
             {/* Bullets */}
@@ -420,8 +443,8 @@ export const ProjectsDirectory: React.FC = () => {
               {selectedProj.bullets.map((bullet, idx) => (
                 <div key={idx} className="flex items-start space-x-2.5 text-xs">
                   <span className="text-machine-orange font-mono select-none mt-0.5">&gt;</span>
-                  <p className="font-sans text-panel-textMuted leading-relaxed">
-                    {bullet}
+                  <p className={`font-sans text-panel-textMuted leading-relaxed w-full ${isLoading ? 'skeleton-load h-12' : ''}`}>
+                    {isLoading ? '' : bullet}
                   </p>
                 </div>
               ))}
@@ -433,28 +456,38 @@ export const ProjectsDirectory: React.FC = () => {
             <div className="border-panel border-b bg-[#121216] px-4 py-2 flex items-center justify-between font-mono text-[10px] text-panel-textMuted">
               <span className="font-semibold uppercase tracking-wider">// LOCAL_NODE_LOG_STREAM</span>
               <span className="flex items-center space-x-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-machine-orange animate-pulse"></span>
-                <span>RECEIVING_STREAM</span>
+                <span className={`w-1.5 h-1.5 rounded-full bg-machine-orange ${isLoading ? '' : 'animate-pulse'}`}></span>
+                <span>{isLoading ? 'SYNCING_LOGS' : 'RECEIVING_STREAM'}</span>
               </span>
             </div>
             <div className="p-4 font-mono text-[11px] text-panel-textMuted space-y-1.5 max-h-[220px] overflow-y-auto terminal-scroll min-h-[140px]">
-              {activeLogs.map((log, index) => {
-                const isError = log.text.includes('drop') || log.text.includes('panic') || log.text.includes('limit');
-                const isSuccess = log.text.includes('successful') || log.text.includes('established') || log.text.includes('active') || log.text.includes('completed') || log.text.includes('verified') || log.text.includes('ONLINE');
-                
-                return (
-                  <div key={index} className="flex items-start">
-                    <span className="text-panel-textMuted select-none mr-2">[{log.timestamp}]</span>
-                    <span className={isError ? 'text-machine-orange' : isSuccess ? 'text-machine-green' : 'text-panel-textActive'}>
-                      {log.text}
-                    </span>
-                  </div>
-                );
-              })}
-              {logIndex < selectedProj.logs.length - 1 && (
-                <div className="flex items-center space-x-1 text-panel-textActive">
-                  <span className="w-1.5 h-3 bg-machine-orange animate-terminal-cursor"></span>
+              {isLoading ? (
+                <div className="space-y-2">
+                  <span className="skeleton-load w-full h-4"></span>
+                  <span className="skeleton-load w-5/6 h-4"></span>
+                  <span className="skeleton-load w-4/5 h-4"></span>
                 </div>
+              ) : (
+                <>
+                  {activeLogs.map((log, index) => {
+                    const isError = log.text.includes('drop') || log.text.includes('panic') || log.text.includes('limit');
+                    const isSuccess = log.text.includes('successful') || log.text.includes('established') || log.text.includes('active') || log.text.includes('completed') || log.text.includes('verified') || log.text.includes('ONLINE');
+                    
+                    return (
+                      <div key={index} className="flex items-start">
+                        <span className="text-panel-textMuted select-none mr-2">[{log.timestamp}]</span>
+                        <span className={isError ? 'text-machine-orange' : isSuccess ? 'text-machine-green' : 'text-panel-textActive'}>
+                          {log.text}
+                        </span>
+                      </div>
+                    );
+                  })}
+                  {logIndex < selectedProj.logs.length - 1 && (
+                    <div className="flex items-center space-x-1 text-panel-textActive">
+                      <span className="w-1.5 h-3 bg-machine-orange animate-terminal-cursor"></span>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           </div>

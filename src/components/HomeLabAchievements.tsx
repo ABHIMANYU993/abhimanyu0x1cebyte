@@ -10,7 +10,11 @@ interface RackUnit {
   desc: string;
 }
 
-export const HomeLabAchievements: React.FC = () => {
+interface HomeLabAchievementsProps {
+  isLoading?: boolean;
+}
+
+export const HomeLabAchievements: React.FC<HomeLabAchievementsProps> = ({ isLoading = false }) => {
   const [selectedUnit, setSelectedUnit] = useState<number>(0);
 
   const rackData: RackUnit[] = [
@@ -61,7 +65,9 @@ export const HomeLabAchievements: React.FC = () => {
       {/* Header */}
       <div className="border-panel border-b pb-4">
         <div className="font-mono text-xs text-machine-orange mb-1 font-bold">SYSTEM.LAB // HOME_LAB_&_AWARDS</div>
-        <h2 className="text-2xl font-bold tracking-tight text-panel-textActive">HOME LAB & HACKATHON WINNER TRACK RECORD</h2>
+        <h2 className="text-2xl font-bold tracking-tight text-panel-textActive">
+          {isLoading ? <span className="skeleton-load w-64 h-7"></span> : 'HOME LAB & HACKATHON WINNER TRACK RECORD'}
+        </h2>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
@@ -89,30 +95,39 @@ export const HomeLabAchievements: React.FC = () => {
                 return (
                   <button
                     key={idx}
+                    disabled={isLoading}
                     onClick={() => setSelectedUnit(idx)}
                     className={`w-full flex items-center justify-between p-3 border font-mono transition-all duration-150 relative text-left ${
-                      isSelected
+                      isSelected && !isLoading
                         ? 'bg-panel-bg border-machine-orange text-panel-textActive shadow-[0_0_15px_rgba(224,90,54,0.05)]'
                         : 'bg-panel-bg/60 border-panel text-panel-textMuted hover:border-panel-borderActive hover:text-panel-textActive'
                     }`}
                   >
                     <div className="flex items-center space-x-3.5">
-                      <span className="text-[10px] bg-panel-header border border-panel px-1.5 py-0.5 text-machine-orange font-bold">
-                        {unit.size}
+                      <span className={`text-[10px] bg-panel-header border border-panel px-1.5 py-0.5 text-machine-orange font-bold ${isLoading ? 'skeleton-load w-6 h-4' : ''}`}>
+                        {isLoading ? '' : unit.size}
                       </span>
                       <div>
-                        <span className="text-xs font-bold block">{unit.name}</span>
-                        <span className="text-[9px] text-panel-textMuted block mt-0.5">{unit.sub}</span>
+                        <span className={`text-xs font-bold block ${isLoading ? 'skeleton-load w-28 h-4' : ''}`}>
+                          {isLoading ? '' : unit.name}
+                        </span>
+                        <span className={`text-[9px] text-panel-textMuted block mt-0.5 ${isLoading ? 'skeleton-load w-36 h-3' : ''}`}>
+                          {isLoading ? '' : unit.sub}
+                        </span>
                       </div>
                     </div>
 
                     <div className="flex items-center space-x-3 text-[10px]">
-                      <span className={`w-2 h-2 rounded-full ${
-                        unit.status.includes('PEERED') || unit.status.includes('ACTIVE') || unit.status.includes('OPERATIONAL') || unit.status.includes('SECURE')
-                          ? 'bg-machine-green animate-pulse-subtle'
-                          : 'bg-machine-amber'
-                      }`}></span>
-                      <span className="hidden sm:inline font-semibold">{unit.status.split(' ')[0]}</span>
+                      {!isLoading && (
+                        <span className={`w-2 h-2 rounded-full ${
+                          unit.status.includes('PEERED') || unit.status.includes('ACTIVE') || unit.status.includes('OPERATIONAL') || unit.status.includes('SECURE')
+                            ? 'bg-machine-green animate-pulse-subtle'
+                            : 'bg-machine-amber'
+                        }`}></span>
+                      )}
+                      <span className={`font-semibold ${isLoading ? 'skeleton-load w-12 h-3.5' : 'hidden sm:inline'}`}>
+                        {isLoading ? '' : unit.status.split(' ')[0]}
+                      </span>
                     </div>
                   </button>
                 );
@@ -124,23 +139,32 @@ export const HomeLabAchievements: React.FC = () => {
           {(() => {
             const unit = rackData[selectedUnit];
             return (
-              <div className="border border-panel bg-[#0d0d0f] p-4 font-mono text-xs space-y-3">
+              <div className="border border-panel bg-black p-4 font-mono text-xs space-y-3">
                 <div className="flex items-center justify-between border-b border-panel pb-2">
-                  <span className="text-machine-orange font-bold">// UNIT {unit.size} READOUT: {unit.name}</span>
+                  <span className={`text-machine-orange font-bold ${isLoading ? 'skeleton-load w-56 h-4' : ''}`}>
+                    {isLoading ? '' : `// UNIT ${unit.size} READOUT: ${unit.name}`}
+                  </span>
                   <span className="text-[10px] text-panel-textMuted bg-panel-card border border-panel px-2 py-0.5">SYS.TELEMETRY</span>
                 </div>
-                <p className="text-panel-textActive font-sans leading-relaxed text-xs">
-                  {unit.desc}
+                <p className={`text-panel-textActive font-sans leading-relaxed text-xs ${isLoading ? 'skeleton-load w-full h-12' : ''}`}>
+                  {isLoading ? '' : unit.desc}
                 </p>
                 <div className="space-y-1.5">
                   <span className="text-[10px] text-panel-textMuted font-bold uppercase tracking-wider block">// Target Hardware Stack:</span>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {unit.specs.map((spec, sIdx) => (
-                      <div key={sIdx} className="flex items-center space-x-2 bg-panel-card border border-panel p-2">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-machine-green flex-shrink-0" />
-                        <span className="text-[10px] text-panel-textActive">{spec}</span>
-                      </div>
-                    ))}
+                    {isLoading ? (
+                      <>
+                        <div className="flex items-center space-x-2 bg-panel-card border border-panel p-2 skeleton-load h-8"></div>
+                        <div className="flex items-center space-x-2 bg-panel-card border border-panel p-2 skeleton-load h-8"></div>
+                      </>
+                    ) : (
+                      unit.specs.map((spec, sIdx) => (
+                        <div key={sIdx} className="flex items-center space-x-2 bg-panel-card border border-panel p-2">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-machine-green flex-shrink-0" />
+                          <span className="text-[10px] text-panel-textActive">{spec}</span>
+                        </div>
+                      ))
+                    )}
                   </div>
                 </div>
               </div>
@@ -162,18 +186,20 @@ export const HomeLabAchievements: React.FC = () => {
                 className="border border-panel bg-panel-card p-4 hover:border-panel-borderActive transition-all duration-150 flex flex-col justify-between group"
               >
                 <div className="flex items-center justify-between font-mono">
-                  <span className="text-xs font-bold text-panel-textActive group-hover:text-machine-orange transition-colors">
-                    {hack.title}
+                  <span className={`text-xs font-bold text-panel-textActive group-hover:text-machine-orange transition-colors ${isLoading ? 'skeleton-load w-24 h-4' : ''}`}>
+                    {isLoading ? '' : hack.title}
                   </span>
                   <div className="flex items-center space-x-2 text-[10px]">
-                    <span className="bg-machine-orangeMuted/20 border border-machine-orange/40 text-machine-orange px-2 py-0.5 font-bold">
-                      {hack.rank}
+                    <span className={`bg-machine-orangeMuted/20 border border-machine-orange/40 text-machine-orange px-2 py-0.5 font-bold ${isLoading ? 'skeleton-load w-12 h-4' : ''}`}>
+                      {isLoading ? '' : hack.rank}
                     </span>
-                    <span className="text-panel-textMuted">{hack.year}</span>
+                    <span className={`text-panel-textMuted ${isLoading ? 'skeleton-load w-6 h-3' : ''}`}>
+                      {isLoading ? '' : hack.year}
+                    </span>
                   </div>
                 </div>
-                <p className="text-xs text-panel-textMuted font-sans mt-2.5 leading-relaxed">
-                  {hack.details}
+                <p className={`text-xs text-panel-textMuted font-sans mt-2.5 leading-relaxed ${isLoading ? 'skeleton-load w-full h-8' : ''}`}>
+                  {isLoading ? '' : hack.details}
                 </p>
               </div>
             ))}

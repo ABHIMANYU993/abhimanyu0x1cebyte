@@ -2,7 +2,11 @@ import React from 'react';
 import { Terminal, Shield, Award, Cpu, Database } from 'lucide-react';
 import { ScrambleText } from './ScrambleText';
 
-export const CoreDiscipline: React.FC = () => {
+interface CoreDisciplineProps {
+  isLoading?: boolean;
+}
+
+export const CoreDiscipline: React.FC<CoreDisciplineProps> = ({ isLoading = false }) => {
   const metrics = [
     {
       icon: Award,
@@ -45,7 +49,11 @@ export const CoreDiscipline: React.FC = () => {
       <div className="border-panel border-b pb-4">
         <div className="font-mono text-xs text-machine-orange mb-1 font-bold">SYSTEM.DISCIPLINE // INITIALIZING...</div>
         <h2 className="text-2xl font-bold tracking-tight text-panel-textActive">
-          <ScrambleText text="CORE ENGINEERING CAPABILITIES" />
+          {isLoading ? (
+            <span className="skeleton-load w-72 h-7"></span>
+          ) : (
+            <ScrambleText text="CORE ENGINEERING CAPABILITIES" />
+          )}
         </h2>
       </div>
 
@@ -57,8 +65,8 @@ export const CoreDiscipline: React.FC = () => {
         <p className="font-mono text-xs text-machine-orange uppercase tracking-wider mb-2 font-semibold">
           // Executive Summary
         </p>
-        <p className="text-sm text-panel-textMuted leading-relaxed font-sans">
-          Systems and MLOps Engineer specializing in low-level hypervisor development, bare-metal infrastructure, and high-performance AI orchestration. Proven track record of bypassing ISP restrictions via advanced BGP routing, optimizing deep learning pipelines for VRAM-constrained GPU clusters, and architecting zero-trust CI/CD deployments. Seeking to leverage deep systems-level knowledge to build and scale production-grade backend infrastructure and AI compute environments.
+        <p className={`text-sm text-panel-textMuted leading-relaxed font-sans ${isLoading ? 'skeleton-load w-full h-16' : ''}`}>
+          {isLoading ? '' : 'Systems and MLOps Engineer specializing in low-level hypervisor development, bare-metal infrastructure, and high-performance AI orchestration. Proven track record of bypassing ISP restrictions via advanced BGP routing, optimizing deep learning pipelines for VRAM-constrained GPU clusters, and architecting zero-trust CI/CD deployments. Seeking to leverage deep systems-level knowledge to build and scale production-grade backend infrastructure and AI compute environments.'}
         </p>
       </div>
 
@@ -70,19 +78,19 @@ export const CoreDiscipline: React.FC = () => {
             <div key={index} className="bg-panel-card border border-panel p-4 flex flex-col justify-between hover:border-panel-borderActive transition-colors duration-150 relative">
               <div className="flex items-start justify-between">
                 <div>
-                  <span className="font-mono text-[9px] text-panel-textMuted uppercase tracking-wider block">
-                    {metric.label}
+                  <span className={`font-mono text-[9px] text-panel-textMuted uppercase tracking-wider block ${isLoading ? 'skeleton-load w-20 h-3' : ''}`}>
+                    {isLoading ? '' : metric.label}
                   </span>
-                  <span className="font-mono text-lg font-bold text-panel-textActive block mt-1">
-                    {metric.value}
+                  <span className={`font-mono text-lg font-bold text-panel-textActive block mt-1 ${isLoading ? 'skeleton-load w-32 h-6' : ''}`}>
+                    {isLoading ? '' : metric.value}
                   </span>
                 </div>
-                <div className="p-2 border border-panel bg-panel-header">
-                  <Icon className="w-4 h-4 text-machine-orange" />
+                <div className={`p-2 border border-panel bg-panel-header ${isLoading ? 'skeleton-load w-8 h-8' : ''}`}>
+                  {!isLoading && <Icon className="w-4 h-4 text-machine-orange" />}
                 </div>
               </div>
-              <p className="text-xs text-panel-textMuted mt-3 font-sans leading-normal">
-                {metric.desc}
+              <p className={`text-xs text-panel-textMuted mt-3 font-sans leading-normal ${isLoading ? 'skeleton-load w-full h-8' : ''}`}>
+                {isLoading ? '' : metric.desc}
               </p>
             </div>
           );
@@ -99,7 +107,7 @@ export const CoreDiscipline: React.FC = () => {
           </div>
           <div className="flex items-center space-x-3 text-[10px]">
             <span className="flex items-center space-x-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-machine-green"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-machine-green animate-pulse"></span>
               <span className="text-panel-textMuted">ONLINE</span>
             </span>
           </div>
@@ -118,18 +126,30 @@ export const CoreDiscipline: React.FC = () => {
             <tbody className="divide-y divide-panel">
               {services.map((svc, idx) => (
                 <tr key={idx} className="hover:bg-panel-bg/30">
-                  <td className="py-2.5 font-medium text-panel-textActive">{svc.name}</td>
-                  <td className="py-2.5 text-panel-textMuted">{svc.detail}</td>
-                  <td className="py-2.5 text-right">
-                    <span className={`px-2 py-0.5 border text-[10px] font-bold ${
-                      svc.status === 'ESTABLISHED' || svc.status === 'ACTIVE' || svc.status === 'OPTIMIZED'
-                        ? 'bg-machine-greenMuted/20 border-machine-green/40 text-machine-green'
-                        : svc.status === 'ACCELERATED' || svc.status === 'READY' || svc.status === 'IDEMPOTENT'
-                        ? 'bg-[#002f3d] border-machine-cyan/40 text-machine-cyan'
-                        : 'bg-machine-orangeMuted/20 border-machine-orange/40 text-machine-orange'
-                    }`}>
-                      {svc.status}
+                  <td className="py-2.5 font-medium text-panel-textActive">
+                    <span className={isLoading ? 'skeleton-load w-28 h-4' : ''}>
+                      {isLoading ? '' : svc.name}
                     </span>
+                  </td>
+                  <td className="py-2.5 text-panel-textMuted">
+                    <span className={isLoading ? 'skeleton-load w-48 h-4' : ''}>
+                      {isLoading ? '' : svc.detail}
+                    </span>
+                  </td>
+                  <td className="py-2.5 text-right">
+                    {isLoading ? (
+                      <span className="skeleton-load w-16 h-5"></span>
+                    ) : (
+                      <span className={`px-2 py-0.5 border text-[10px] font-bold ${
+                        svc.status === 'ESTABLISHED' || svc.status === 'ACTIVE' || svc.status === 'OPTIMIZED'
+                          ? 'bg-machine-greenMuted/20 border-machine-green/40 text-machine-green'
+                          : svc.status === 'ACCELERATED' || svc.status === 'READY' || svc.status === 'IDEMPOTENT'
+                          ? 'bg-[#002f3d] border-machine-cyan/40 text-machine-cyan'
+                          : 'bg-machine-orangeMuted/20 border-machine-orange/40 text-machine-orange'
+                      }`}>
+                        {svc.status}
+                      </span>
+                    )}
                   </td>
                 </tr>
               ))}
