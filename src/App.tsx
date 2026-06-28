@@ -86,9 +86,12 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[#000000] bg-grid-pattern text-[#f4f4f7] flex flex-col md:flex-row relative">
-      {/* Subtle CRT screen scan lines overlay */}
-      <div className="absolute inset-0 pointer-events-none z-50 scanlines opacity-[0.12] mix-blend-overlay"></div>
+    <div className="min-h-screen bg-[#000000] text-[#f4f4f7] flex flex-col md:flex-row relative">
+      {/* Fixed background grid layer (True Amoled Black + Fixed Grid Lines) */}
+      <div className="fixed inset-0 bg-[#000000] bg-grid-pattern pointer-events-none z-0"></div>
+
+      {/* Fixed CRT screen scan lines overlay */}
+      <div className="fixed inset-0 pointer-events-none z-50 scanlines opacity-[0.12] mix-blend-overlay"></div>
 
       {/* Catppuccino Desktop Pet roving daemon */}
       <CatppuccinoDaemon variant="white_cat" />
@@ -156,12 +159,12 @@ function App() {
       )}
 
       {/* Sidebar for desktop */}
-      <div className="hidden md:flex flex-shrink-0 md:h-screen md:sticky md:top-0 w-80 min-w-[320px] max-w-[320px] border-panel border-r">
+      <div className="hidden md:flex flex-shrink-0 md:h-screen md:sticky md:top-0 w-80 min-w-[320px] max-w-[320px] border-panel border-r relative z-10">
         <Sidebar activeSection={activeSection} setActiveSection={setActiveSection} />
       </div>
 
       {/* Main Content Area */}
-      <main className="flex-grow flex flex-col min-h-screen">
+      <main className="flex-grow flex flex-col min-h-screen relative z-10">
         {/* Top Status Telemetry Toolbar */}
         <section className="bg-panel-card border-panel border-b p-3 flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-2 sm:space-y-0 text-[10px] font-mono text-panel-textMuted select-none sticky top-[53px] md:top-0 z-20">
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1">

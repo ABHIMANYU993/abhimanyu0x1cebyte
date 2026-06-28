@@ -117,7 +117,7 @@ export const SkillsMatrix: React.FC<SkillsMatrixProps> = ({ isLoading = false })
         {skillsData.map((category, idx) => {
           const CategoryIcon = category.icon;
           return (
-            <div key={idx} className="border border-panel bg-panel-card flex flex-col justify-between">
+            <div key={idx} className="border border-panel bg-panel-card flex flex-col justify-between rounded-[24px] overflow-hidden">
               {/* Category Header */}
               <div className="border-panel border-b bg-panel-header px-4 py-3 flex items-center justify-between font-mono">
                 <div className="flex items-center space-x-2.5">
@@ -168,7 +168,7 @@ export const SkillsMatrix: React.FC<SkillsMatrixProps> = ({ isLoading = false })
       </div>
 
       {/* Selected Skill Use Case Readout Console */}
-      <div className="border border-panel bg-black">
+      <div className="border border-panel bg-panel-card rounded-[24px] overflow-hidden">
         <div className="border-panel border-b bg-[#121216] px-4 py-2 flex items-center justify-between font-mono text-[10px] text-panel-textMuted">
           <span className="font-semibold uppercase tracking-wider">// SYSTEM_CORE_READOUT</span>
           <span>STATE: {isLoading ? 'SYNCING' : selectedSkill ? 'READING_DATA' : 'STANDBY'}</span>

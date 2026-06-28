@@ -58,7 +58,7 @@ export const CoreDiscipline: React.FC<CoreDisciplineProps> = ({ isLoading = fals
       </div>
 
       {/* Engineering Summary */}
-      <div className="bg-panel-card border border-panel p-5 relative overflow-hidden">
+      <div className="bg-panel-card border border-panel p-5 relative rounded-[24px] overflow-hidden">
         <div className="absolute top-0 right-0 p-1.5 font-mono text-[9px] text-[#222227] pointer-events-none select-none font-bold uppercase">
           SYS_SUMMARY
         </div>
@@ -75,7 +75,7 @@ export const CoreDiscipline: React.FC<CoreDisciplineProps> = ({ isLoading = fals
         {metrics.map((metric, index) => {
           const Icon = metric.icon;
           return (
-            <div key={index} className="bg-panel-card border border-panel p-4 flex flex-col justify-between hover:border-panel-borderActive transition-colors duration-150 relative">
+            <div key={index} className="bg-panel-card border border-panel p-4 flex flex-col justify-between hover:border-panel-borderActive transition-colors duration-150 relative rounded-[24px] overflow-hidden">
               <div className="flex items-start justify-between">
                 <div>
                   <span className={`font-mono text-[9px] text-panel-textMuted uppercase tracking-wider block ${isLoading ? 'skeleton-load w-20 h-3' : ''}`}>
@@ -98,7 +98,7 @@ export const CoreDiscipline: React.FC<CoreDisciplineProps> = ({ isLoading = fals
       </div>
 
       {/* System Diagnostics Monitor Panel */}
-      <div className="border border-panel bg-panel-card">
+      <div className="border border-panel bg-panel-card rounded-[24px] overflow-hidden">
         {/* Panel Head */}
         <div className="border-panel border-b bg-panel-header px-4 py-2 flex items-center justify-between font-mono text-xs">
           <div className="flex items-center space-x-2">

@@ -329,7 +329,7 @@ export const ProjectsDirectory: React.FC<ProjectsDirectoryProps> = ({ isLoading 
                 key={proj.id}
                 disabled={isLoading}
                 onClick={() => setSelectedProjId(proj.id)}
-                className={`w-full text-left p-2.5 rounded font-mono transition-all duration-150 border flex flex-col ${
+                className={`w-full text-left p-2.5 rounded-[12px] font-mono transition-all duration-150 border flex flex-col ${
                   selectedProjId === proj.id && !isLoading
                     ? 'bg-panel-card border-machine-orange text-panel-textActive'
                     : 'bg-panel-card/30 border-panel text-panel-textMuted hover:text-panel-textActive hover:bg-panel-card/60'
@@ -346,7 +346,7 @@ export const ProjectsDirectory: React.FC<ProjectsDirectoryProps> = ({ isLoading 
           </div>
 
           {/* Other Open Source block */}
-          <div className="border border-panel bg-panel-card/20 p-3 mt-4">
+          <div className="border border-panel bg-panel-card/20 p-3 mt-4 rounded-[24px] overflow-hidden">
             <span className="font-mono text-[9px] text-panel-textMuted uppercase font-bold tracking-wider block mb-2">
               // Other Open Source Work
             </span>
@@ -375,7 +375,7 @@ export const ProjectsDirectory: React.FC<ProjectsDirectoryProps> = ({ isLoading 
 
         {/* Right Side: Active Project Details */}
         <div className="lg:col-span-8 space-y-6">
-          <div className="bg-panel-card border border-panel">
+          <div className="bg-panel-card border border-panel rounded-[24px] overflow-hidden">
             {/* Title Bar */}
             <div className="border-panel border-b bg-panel-header px-4 py-3 flex flex-col sm:flex-row sm:items-center justify-between space-y-2 sm:space-y-0">
               <div>
@@ -452,7 +452,7 @@ export const ProjectsDirectory: React.FC<ProjectsDirectoryProps> = ({ isLoading 
           </div>
 
           {/* Diagnostics Log Console */}
-          <div className="border border-panel bg-black">
+          <div className="border border-panel bg-panel-card rounded-[24px] overflow-hidden">
             <div className="border-panel border-b bg-[#121216] px-4 py-2 flex items-center justify-between font-mono text-[10px] text-panel-textMuted">
               <span className="font-semibold uppercase tracking-wider">// LOCAL_NODE_LOG_STREAM</span>
               <span className="flex items-center space-x-1">

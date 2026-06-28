@@ -93,7 +93,7 @@ export const WorkExperience: React.FC<WorkExperienceProps> = ({ isLoading = fals
         return (
           <div className="space-y-6">
             {/* Header info */}
-            <div className="bg-panel-card border border-panel p-4 flex flex-col md:flex-row justify-between items-start md:items-center space-y-2 md:space-y-0">
+            <div className="bg-panel-card border border-panel p-4 flex flex-col md:flex-row justify-between items-start md:items-center space-y-2 md:space-y-0 rounded-[24px] overflow-hidden">
               <div>
                 <h3 className="font-mono text-base font-bold text-panel-textActive">
                   {isLoading ? (
@@ -123,7 +123,7 @@ export const WorkExperience: React.FC<WorkExperienceProps> = ({ isLoading = fals
             </div>
 
             {/* Context block */}
-            <div className="bg-[#0f0f12] border border-panel px-4 py-3.5 font-mono text-[11px] leading-relaxed relative">
+            <div className="bg-panel-card border border-panel px-4 py-3.5 font-mono text-[11px] leading-relaxed relative rounded-[24px] overflow-hidden">
               <span className="absolute top-0 right-0 p-1 font-mono text-[8px] text-[#222227] select-none font-bold">
                 ENV_CONTEXT
               </span>
@@ -145,7 +145,7 @@ export const WorkExperience: React.FC<WorkExperienceProps> = ({ isLoading = fals
                   {exp.bullets.map((bullet, bIdx) => (
                     <div
                       key={bIdx}
-                      className="border border-panel bg-panel-card/40 p-3 flex items-start space-x-3 group hover:border-panel-borderActive transition-colors"
+                      className="border border-panel bg-panel-card/40 p-3 flex items-start space-x-3 group hover:border-panel-borderActive transition-colors rounded-[24px] overflow-hidden"
                     >
                       <div className="mt-1 flex-shrink-0 font-mono text-[11px] text-machine-orange select-none">
                         [{String(bIdx + 1).padStart(2, '0')}]
@@ -171,7 +171,7 @@ export const WorkExperience: React.FC<WorkExperienceProps> = ({ isLoading = fals
                       {proj.bullets.map((bullet, bIdx) => (
                         <div
                           key={bIdx}
-                          className="border border-panel bg-panel-card/40 p-3 flex items-start space-x-3 group hover:border-panel-borderActive transition-colors"
+                          className="border border-panel bg-panel-card/40 p-3 flex items-start space-x-3 group hover:border-panel-borderActive transition-colors rounded-[24px] overflow-hidden"
                         >
                           <div className="mt-1 flex-shrink-0 font-mono text-[11px] text-machine-orange select-none">
                             [{String(bIdx + 1).padStart(2, '0')}]

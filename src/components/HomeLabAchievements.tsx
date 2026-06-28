@@ -79,7 +79,7 @@ export const HomeLabAchievements: React.FC<HomeLabAchievementsProps> = ({ isLoad
           </div>
 
           {/* Rack visual container */}
-          <div className="border-2 border-panel bg-panel-card p-3 rounded space-y-3 relative">
+          <div className="border-2 border-panel bg-panel-card p-3 rounded-[24px] overflow-hidden space-y-3 relative">
             {/* Side Rack Rails */}
             <div className="absolute top-0 bottom-0 left-1.5 w-1 border-r border-[#222227] flex flex-col justify-between py-6 pointer-events-none select-none">
               {[...Array(8)].map((_, i) => <div key={i} className="w-1.5 h-1.5 bg-[#1b1b22] rounded-full border border-panel"></div>)}
@@ -97,7 +97,7 @@ export const HomeLabAchievements: React.FC<HomeLabAchievementsProps> = ({ isLoad
                     key={idx}
                     disabled={isLoading}
                     onClick={() => setSelectedUnit(idx)}
-                    className={`w-full flex items-center justify-between p-3 border font-mono transition-all duration-150 relative text-left ${
+                    className={`w-full flex items-center justify-between p-3 border rounded-[12px] font-mono transition-all duration-150 relative text-left ${
                       isSelected && !isLoading
                         ? 'bg-panel-bg border-machine-orange text-panel-textActive shadow-[0_0_15px_rgba(224,90,54,0.05)]'
                         : 'bg-panel-bg/60 border-panel text-panel-textMuted hover:border-panel-borderActive hover:text-panel-textActive'
@@ -139,7 +139,7 @@ export const HomeLabAchievements: React.FC<HomeLabAchievementsProps> = ({ isLoad
           {(() => {
             const unit = rackData[selectedUnit];
             return (
-              <div className="border border-panel bg-black p-4 font-mono text-xs space-y-3">
+              <div className="border border-panel bg-panel-card p-4 font-mono text-xs space-y-3 rounded-[24px] overflow-hidden">
                 <div className="flex items-center justify-between border-b border-panel pb-2">
                   <span className={`text-machine-orange font-bold ${isLoading ? 'skeleton-load w-56 h-4' : ''}`}>
                     {isLoading ? '' : `// UNIT ${unit.size} READOUT: ${unit.name}`}
@@ -159,7 +159,7 @@ export const HomeLabAchievements: React.FC<HomeLabAchievementsProps> = ({ isLoad
                       </>
                     ) : (
                       unit.specs.map((spec, sIdx) => (
-                        <div key={sIdx} className="flex items-center space-x-2 bg-panel-card border border-panel p-2">
+                        <div key={sIdx} className="flex items-center space-x-2 bg-panel-card border border-panel p-2 rounded-[12px] overflow-hidden">
                           <CheckCircle2 className="w-3.5 h-3.5 text-machine-green flex-shrink-0" />
                           <span className="text-[10px] text-panel-textActive">{spec}</span>
                         </div>
@@ -183,7 +183,7 @@ export const HomeLabAchievements: React.FC<HomeLabAchievementsProps> = ({ isLoad
             {hackathons.map((hack, hIdx) => (
               <div
                 key={hIdx}
-                className="border border-panel bg-panel-card p-4 hover:border-panel-borderActive transition-all duration-150 flex flex-col justify-between group"
+                className="border border-panel bg-panel-card p-4 hover:border-panel-borderActive transition-all duration-150 flex flex-col justify-between group rounded-[24px] overflow-hidden"
               >
                 <div className="flex items-center justify-between font-mono">
                   <span className={`text-xs font-bold text-panel-textActive group-hover:text-machine-orange transition-colors ${isLoading ? 'skeleton-load w-24 h-4' : ''}`}>
