@@ -22,6 +22,11 @@ function App() {
     return true;
   });
 
+  const [catVariant] = useState<'white_cat' | 'calico_cat' | 'orange_cat' | 'grey_tabby_cat'>(() => {
+    const variants = ['white_cat', 'calico_cat', 'orange_cat', 'grey_tabby_cat'] as const;
+    return variants[Math.floor(Math.random() * variants.length)];
+  });
+
   // Sync localized system time
   useEffect(() => {
     const updateTime = () => {
@@ -92,21 +97,20 @@ function App() {
 
       {/* Fixed CRT screen scan lines overlay */}
       <div className="fixed inset-0 pointer-events-none z-50 scanlines opacity-[0.12] mix-blend-overlay"></div>
-
       {/* Catppuccino Desktop Pet roving daemon */}
-      <CatppuccinoDaemon variant="white_cat" />
+      <CatppuccinoDaemon variant={catVariant} />
 
       {/* Mobile Top Bar */}
       <header className="md:hidden bg-panel-card border-b border-panel p-4 flex items-center justify-between sticky top-0 z-40 select-none">
         <div className="flex items-center space-x-2">
-          <button 
+          <button
             onClick={() => setActiveSection('core')}
             className="focus:outline-none focus:ring-1 focus:ring-machine-orange"
             title="Navigate to Home"
           >
-            <img 
-              src="/logo.png" 
-              alt="Icebyte Labs Logo" 
+            <img
+              src="/logo.png"
+              alt="Icebyte Labs Logo"
               className="w-5 h-5 object-cover border border-panel p-[1px] opacity-95 hover:opacity-100 transition-opacity"
             />
           </button>
@@ -145,11 +149,10 @@ function App() {
                 setActiveSection(item.id);
                 setMobileMenuOpen(false);
               }}
-              className={`w-full flex items-center justify-between p-2.5 rounded border text-left ${
-                activeSection === item.id
-                  ? 'bg-panel-bg border-machine-orange text-machine-orange font-medium'
-                  : 'bg-transparent border-transparent text-panel-textMuted'
-              }`}
+              className={`w-full flex items-center justify-between p-2.5 rounded border text-left ${activeSection === item.id
+                ? 'bg-panel-bg border-machine-orange text-machine-orange font-medium'
+                : 'bg-transparent border-transparent text-panel-textMuted'
+                }`}
             >
               <span>{item.label}</span>
               {activeSection === item.id && <span>&gt;</span>}
