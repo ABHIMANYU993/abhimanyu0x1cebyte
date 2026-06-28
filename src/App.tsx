@@ -7,7 +7,7 @@ import { ProjectsDirectory } from './components/ProjectsDirectory';
 import { HomeLabAchievements } from './components/HomeLabAchievements';
 import { Terminal, Database, Folder, Activity, Menu, X } from 'lucide-react';
 import { BootLoader } from './components/BootLoader';
-import { SysDaemon } from './components/SysDaemon';
+import { CatppuccinoDaemon } from './components/CatppuccinoDaemon';
 
 function App() {
   const [activeSection, setActiveSection] = useState<string>('core');
@@ -80,8 +80,8 @@ function App() {
       {/* Subtle CRT screen scan lines overlay */}
       <div className="absolute inset-0 pointer-events-none z-50 scanlines opacity-[0.12] mix-blend-overlay"></div>
 
-      {/* Roving ASCII Daemon background process */}
-      <SysDaemon />
+      {/* Catppuccino Desktop Pet roving daemon */}
+      <CatppuccinoDaemon variant="white_cat" />
 
       {/* Mobile Top Bar */}
       <header className="md:hidden bg-panel-card border-b border-panel p-4 flex items-center justify-between sticky top-0 z-40 select-none">
