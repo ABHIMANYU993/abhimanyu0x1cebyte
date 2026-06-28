@@ -47,11 +47,32 @@ export const WorkExperience: React.FC<WorkExperienceProps> = ({ isLoading = fals
       role: 'AI & Web Systems Intern',
       location: 'Remote (Bangalore, India)',
       period: 'May 2025 – Aug 2025',
-      context: 'Managed physical server migration, constructed highly responsive user interfaces, and designed automated data pipeline crawlers to process local book inventories.',
-      bullets: [
-        'Migrated critical hardware nodes, transferring physically hosted application databases into dedicated cloud droplets with zero metadata corruption or service downtime.',
-        'Architected a standalone, multi-threaded BeautifulSoup crawler pipeline to scrape localized ISBN listings, converting raw text files into structured MongoDB logs.',
-        'Refined frontend responsive performance, styling fluid, technical landing pages utilizing tailwind utilities and CSS breakpoints to support heterogeneous screen sizes.'
+      context: 'Handled two major US-client projects (High-Fidelity AI Image Generation and ResOpti AI Resume Optimizer) serving as the sole engineer for end-to-end R&D, pipeline design, cloud deployment, and reverse-engineering.',
+      bullets: [],
+      projects: [
+        {
+          title: 'Project 1: High-Fidelity Generative AI (Flux.1.dev Fine-Tuning for US Dating App)',
+          bullets: [
+            'Benchmarked DreamBooth against Low-Rank Adaptation (LoRA) fine-tuning architectures for the 26GB Flux.1.dev diffusion model. Discovered that LoRA guaranteed exact facial and structural identity preservation over 3,000 training steps, whereas DreamBooth suffered from characteristic background and physical proportion degradation.',
+            'Conducted rigorous hardware profiling across 96GB, 48GB, and 24GB RunPod GPU instances, identifying the 48GB configuration as optimal for raw throughput but strategically restricting the training footprint to a strict 24GB VRAM ceiling to minimize cloud compute costs.',
+            'Optimized PyTorch fine-tuning scripts for parallel processing and strict memory efficiency, successfully slashing the overall compute time per session by 33% and reducing the duration of a full 3,000-step training cycle from 1.5 hours to exactly 1.0 hour.',
+            'Tuned low-level PyTorch memory parameters and LoRA rank adaptations, specifically limiting gradient updates to surface layers rather than deep layers to manage the severe memory requirements of the Flux architecture.',
+            'Designed a future-proofed pipeline utilizing quantized models stripped of extraneous encoding/noise dependencies to aggressively lower hardware barriers without sacrificing generation quality.',
+            'Developed an automated image pre-processing pipeline utilizing Computer Vision concepts to dynamically isolate human subjects, center facial/skeletal structures regardless of orientation, and auto-generate text descriptions (keyword triggers) to normalize highly variable user data for micro-batch (10-15 images) training.',
+            'Architected an enterprise-grade FastAPI backend inference endpoint designed for dynamic compute efficiency; the system runs a single base Flux model on the server and dynamically hot-swaps lightweight (600-700MB) user-specific LoRA weights into memory per request, drastically reducing hardware overhead.',
+            'Engineered the end-to-end MLOps pipeline to reliably process variable-quality user images, applying fine-tuned weights to consistently generate photorealistic, highly personalized historical scenes indistinguishable from real photographs.'
+          ]
+        },
+        {
+          title: 'Project 2: ResOpti (AI Resume Optimizer & Google Workspace Integration)',
+          bullets: [
+            'Investigated native DOM scraping/injection for Google Docs but discovered the underlying shift to Canvas-based rendering blocked standard entity extraction. Evaluated custom open-source editors (AnyDesk, OnlyOffice) and HTML-to-DOCX conversion, ultimately rejecting them due to heavy API licensing costs and formatting destruction.',
+            'Successfully bypassed Canvas/DOM constraints by engineering a native, single-pane Google Workspace Add-on utilizing official Google APIs, enabling Grammarly-style inline AI text extraction and content injection directly within the active document while perfectly preserving native formatting (font, alignment, spacing).',
+            'Architected the core backend infrastructure using FastAPI and MongoDB to ingest job description (JD) URLs and raw text, manage user profiles and templates, and securely track document versioning.',
+            'Integrated the Google Gemini API to build a semantic text analysis pipeline capable of cross-referencing user resumes against parsed job descriptions to intelligently identify missing skills, compute precise ATS readiness scores, and calculate mathematical match percentages.',
+            'Orchestrated backend MLOps via PyTorch and FastAPI to execute low-latency content generation, enabling granular single-bullet updates, bullet point suggestions, and automated full-document keyword alignment directly inside the Google Docs editor without context switching.'
+          ]
+        }
       ]
     }
   ];
@@ -60,9 +81,9 @@ export const WorkExperience: React.FC<WorkExperienceProps> = ({ isLoading = fals
     <div className="space-y-8 animate-fade-in">
       {/* Header */}
       <div className="border-panel border-b pb-4">
-        <div className="font-mono text-xs text-machine-orange mb-1 font-bold">SYSTEM.EXPERIENCE // RECORD_READOUT</div>
+        <div className="font-mono text-xs text-machine-orange mb-1 font-bold">SYSTEM.EXP // WORK_EXPERIENCE</div>
         <h2 className="text-2xl font-bold tracking-tight text-panel-textActive">
-          {isLoading ? <span className="skeleton-load w-64 h-7"></span> : 'PROFESSIONAL CHRONOLOGY'}
+          {isLoading ? <span className="skeleton-load w-64 h-7"></span> : 'WORK EXPERIENCE DEEP-DIVE'}
         </h2>
       </div>
 

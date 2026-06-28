@@ -7,13 +7,14 @@
     font-size: 18px;
     background-color: rgb(0, 0, 0) !important;
   }
+
   body {
     background-color: rgb(0, 0, 0) !important;
     @apply text-panel-textActive font-sans antialiased;
   }
 
   /* Focus rings for accessibility following strict technical outline style */
-  button:focus-visible, 
+  button:focus-visible,
   a:focus-visible {
     @apply outline-none ring-1 ring-machine-orange ring-offset-2 ring-offset-panel-bg;
   }
@@ -22,20 +23,20 @@
 /* Systems/Industrial aesthetic background grid pattern */
 .bg-grid-pattern {
   background-size: 24px 24px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
 }
 
 /* Blurry Translucent Glassmorphism Overrides */
-.bg-panel-card, 
-.bg-\[\#121216\], 
-.bg-\[\#121216\]\/30, 
-.bg-\[\#121216\]\/50, 
-.bg-\[\#121216\]\/20, 
-.bg-panel-card\/20, 
-.bg-panel-card\/30, 
-.bg-panel-card\/40, 
+.bg-panel-card,
+.bg-\[\#121216\],
+.bg-\[\#121216\]\/30,
+.bg-\[\#121216\]\/50,
+.bg-\[\#121216\]\/20,
+.bg-panel-card\/20,
+.bg-panel-card\/30,
+.bg-panel-card\/40,
 .bg-panel-card\/60,
 .bg-\[\#0d0d0f\]\/50,
 .bg-\[\#0d0d0f\] {
@@ -45,9 +46,9 @@
   border-radius: 24px !important;
 }
 
-.bg-panel-header, 
-.bg-\[\#18181f\], 
-.bg-\[\#121216\]\/50, 
+.bg-panel-header,
+.bg-\[\#18181f\],
+.bg-\[\#121216\]\/50,
 .bg-\[\#111115\] {
   background-color: rgba(0, 0, 0, 0.65) !important;
   backdrop-filter: blur(8px) saturate(130%) !important;
@@ -80,8 +81,15 @@
 
 /* Custom terminal prompt blinking cursor animation */
 @keyframes blink-cursor {
-  from, to { border-color: transparent }
-  50% { border-color: #e05a36 }
+
+  from,
+  to {
+    border-color: transparent
+  }
+
+  50% {
+    border-color: #e05a36
+  }
 }
 
 .animate-cursor {
@@ -104,11 +112,15 @@
   position: relative;
   overflow: hidden;
 }
+
 .scanlines::before {
   content: " ";
   display: block;
   position: absolute;
-  top: 0; left: 0; bottom: 0; right: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
   background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
   z-index: 10;
   background-size: 100% 4px, 6px 100%;
@@ -117,13 +129,17 @@
 
 /* Real Skeleton utility classes */
 @keyframes skeleton-pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     background-color: rgba(38, 38, 45, 0.45);
   }
+
   50% {
     background-color: rgba(60, 60, 75, 0.65);
   }
 }
+
 .skeleton-load {
   color: transparent !important;
   background-color: rgba(38, 38, 45, 0.45) !important;
@@ -135,7 +151,7 @@
   display: inline-block;
   animation: skeleton-pulse 1.5s ease-in-out infinite;
 }
+
 .skeleton-load * {
   visibility: hidden !important;
 }
-
