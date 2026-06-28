@@ -23,7 +23,7 @@ interface Project {
 export const ProjectsDirectory: React.FC = () => {
   const [selectedProjId, setSelectedProjId] = useState<string>('vmm');
   const [logIndex, setLogIndex] = useState<number>(0);
-  const [activeLogs, setActiveLogs] = useState<string[]>([]);
+  const [activeLogs, setActiveLogs] = useState<Array<{ text: string; timestamp: string }>>([]);
 
   const projectsData: Project[] = [
     {
@@ -278,7 +278,10 @@ export const ProjectsDirectory: React.FC = () => {
   // Simulating terminal logs outputting step-by-step
   useEffect(() => {
     setLogIndex(0);
-    setActiveLogs([selectedProj.logs[0]]);
+    setActiveLogs([{ 
+      text: selectedProj.logs[0], 
+      timestamp: new Date().toLocaleTimeString('en-US', { hour12: false }) 
+    }]);
   }, [selectedProjId]);
 
   useEffect(() => {
@@ -286,7 +289,13 @@ export const ProjectsDirectory: React.FC = () => {
       const timer = setTimeout(() => {
         const nextIndex = logIndex + 1;
         setLogIndex(nextIndex);
-        setActiveLogs((prev) => [...prev, selectedProj.logs[nextIndex]]);
+        setActiveLogs((prev) => [
+          ...prev, 
+          { 
+            text: selectedProj.logs[nextIndex], 
+            timestamp: new Date().toLocaleTimeString('en-US', { hour12: false }) 
+          }
+        ]);
       }, 350 + Math.random() * 200);
       return () => clearTimeout(timer);
     }
@@ -430,14 +439,14 @@ export const ProjectsDirectory: React.FC = () => {
             </div>
             <div className="p-4 font-mono text-[11px] text-panel-textMuted space-y-1.5 max-h-[220px] overflow-y-auto terminal-scroll min-h-[140px]">
               {activeLogs.map((log, index) => {
-                const isError = log.includes('drop') || log.includes('panic') || log.includes('limit');
-                const isSuccess = log.includes('successful') || log.includes('established') || log.includes('active') || log.includes('completed') || log.includes('verified') || log.includes('ONLINE');
+                const isError = log.text.includes('drop') || log.text.includes('panic') || log.text.includes('limit');
+                const isSuccess = log.text.includes('successful') || log.text.includes('established') || log.text.includes('active') || log.text.includes('completed') || log.text.includes('verified') || log.text.includes('ONLINE');
                 
                 return (
                   <div key={index} className="flex items-start">
-                    <span className="text-panel-textMuted select-none mr-2">[{new Date().toLocaleTimeString('en-US', { hour12: false })}]</span>
+                    <span className="text-panel-textMuted select-none mr-2">[{log.timestamp}]</span>
                     <span className={isError ? 'text-machine-orange' : isSuccess ? 'text-machine-green' : 'text-panel-textActive'}>
-                      {log}
+                      {log.text}
                     </span>
                   </div>
                 );

@@ -32,6 +32,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeSection, setActiveSectio
           hr = 0;
           day += 1;
         }
+
         return { days: day, hours: hr, minutes: min, seconds: sec };
       });
       
@@ -51,7 +52,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeSection, setActiveSectio
   ];
 
   return (
-    <aside className="w-full md:w-80 border-panel md:border-r flex flex-col justify-between bg-panel-card select-none">
+    <aside className="w-full h-full flex flex-col justify-between bg-panel-card select-none overflow-y-auto terminal-scroll">
       {/* Top Banner & Profile Info */}
       <div className="flex flex-col">
         {/* Machine Head */}
@@ -67,13 +68,17 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeSection, setActiveSectio
 
         {/* Identity block */}
         <div className="p-5 border-panel border-b flex items-start space-x-4">
-          <div className="w-12 h-12 border border-panel p-0.5 bg-panel-bg flex-shrink-0">
+          <button 
+            onClick={() => setActiveSection('core')}
+            className="w-12 h-12 border border-panel p-0.5 bg-panel-bg flex-shrink-0 hover:border-machine-orange transition-colors duration-150 focus:outline-none focus:ring-1 focus:ring-machine-orange"
+            title="Navigate to Home"
+          >
             <img 
               src="/logo.png" 
               alt="Icebyte Labs Logo" 
-              className="w-full h-full object-cover filter grayscale contrast-125 opacity-90"
+              className="w-full h-full object-cover opacity-95 hover:opacity-100 transition-opacity"
             />
-          </div>
+          </button>
           <div className="flex-1 min-w-0">
             <h1 className="font-mono text-lg font-bold tracking-tight text-panel-textActive leading-snug">
               <ScrambleText text="ABHIMANYU BADIGER" />

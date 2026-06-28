@@ -86,11 +86,17 @@ function App() {
       {/* Mobile Top Bar */}
       <header className="md:hidden bg-panel-card border-b border-panel p-4 flex items-center justify-between sticky top-0 z-40 select-none">
         <div className="flex items-center space-x-2">
-          <img 
-            src="/logo.png" 
-            alt="Icebyte Labs Logo" 
-            className="w-5 h-5 object-cover border border-panel p-[1px] filter grayscale opacity-90"
-          />
+          <button 
+            onClick={() => setActiveSection('core')}
+            className="focus:outline-none focus:ring-1 focus:ring-machine-orange"
+            title="Navigate to Home"
+          >
+            <img 
+              src="/logo.png" 
+              alt="Icebyte Labs Logo" 
+              className="w-5 h-5 object-cover border border-panel p-[1px] opacity-95 hover:opacity-100 transition-opacity"
+            />
+          </button>
           <span className="font-mono text-xs font-bold text-panel-textActive">ABHIMANYU.SYS</span>
         </div>
         <div className="flex items-center space-x-3">
@@ -140,7 +146,7 @@ function App() {
       )}
 
       {/* Sidebar for desktop */}
-      <div className="hidden md:flex flex-shrink-0">
+      <div className="hidden md:flex flex-shrink-0 md:h-screen md:sticky md:top-0 w-80 min-w-[320px] max-w-[320px] border-panel border-r">
         <Sidebar activeSection={activeSection} setActiveSection={setActiveSection} />
       </div>
 
