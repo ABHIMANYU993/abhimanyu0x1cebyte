@@ -53,11 +53,11 @@ export const HomeLabAchievements: React.FC<HomeLabAchievementsProps> = ({ isLoad
   ];
 
   const hackathons = [
-    { title: 'JSS Navotthana', year: '2025', rank: '1st Place', details: 'Secured top place by delivering high-throughput edge machine learning deployment under 36 hours.' },
-    { title: 'HACKVERSE', year: '2025', rank: '1st Place', details: 'Built autonomous multi-agent state coordination pipeline using LangGraph, routing intent constraints under live testing.' },
-    { title: 'CRYPTIC 3.0', year: '2024', rank: '1st Place', details: 'Engineered high-performance cryptographic validation backend, scaling API handlers for raw execution speed.' },
-    { title: 'CICADA', year: '2024', rank: '1st Place', details: 'Designed bare-metal network tracking monitor that detects anomalies in subnet packet streams.' },
-    { title: 'SCIENTIA', year: '2023', rank: '1st Place', details: 'Developed predictive modeling pipeline parsing public records data utilizing PyTorch classification.' },
+    { title: 'JSS Navotthana', year: '2025', rank: '1st Place' },
+    { title: 'HACKVERSE', year: '2025', rank: '1st Place' },
+    { title: 'CRYPTIC 3.0', year: '2024', rank: '1st Place' },
+    { title: 'CICADA', year: '2024', rank: '1st Place' },
+    { title: 'SCIENTIA', year: '2023', rank: '1st Place' },
   ];
 
   return (
@@ -198,9 +198,6 @@ export const HomeLabAchievements: React.FC<HomeLabAchievementsProps> = ({ isLoad
                     </span>
                   </div>
                 </div>
-                <p className={`text-xs text-panel-textMuted font-sans mt-2.5 leading-relaxed ${isLoading ? 'skeleton-load w-full h-8' : ''}`}>
-                  {isLoading ? '' : hack.details}
-                </p>
               </div>
             ))}
           </div>
